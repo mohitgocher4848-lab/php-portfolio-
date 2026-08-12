@@ -13,8 +13,10 @@ pipeline {
             }
         }
         stage('Push Image') {
-            steps { 
-                sh 'docker push mohitgocher4848-lab/my-app:latest' 
+            steps {
+                withDockerRegistry(credentialsId: 'docker-hub-credentials', toolName: 'default') {
+                    sh 'docker push mohitgocher4848-lab/my-app:latest'
+                }
             }
         }
         stage('Deploy to Kubernetes') {
