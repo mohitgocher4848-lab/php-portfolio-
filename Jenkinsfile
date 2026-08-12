@@ -14,9 +14,8 @@ pipeline {
         }
         stage('Push Image') {
             steps { 
-                // Yahan hum Jenkins ke global credentials use kar rahe hain bina plugin ke
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                     sh 'docker push mohitgocher4848-lab/my-app:latest'
                 }
             }
